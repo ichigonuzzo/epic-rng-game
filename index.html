@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic RNG Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1>Epic RNG Game</h1>
+            <div id="stats-bar">
+                <div class="stat">
+                    <span class="stat-label">Points:</span>
+                    <span id="points">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Layer:</span>
+                    <span id="current-layer">Novice (1)</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Multiplier:</span>
+                    <span id="multiplier">1x</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="game-area">
+                <!-- Rolling Section -->
+                <section id="rolling-section">
+                    <h2>Rolling Area</h2>
+                    <div id="roll-display">
+                        <div id="dice-container">
+                            <div id="dice" class="dice">🎲</div>
+                        </div>
+                        <div id="roll-result">Click to roll!</div>
+                        <div id="roll-type"></div>
+                    </div>
+                    
+                    <div id="roll-controls">
+                        <button id="roll-btn" class="main-btn">Roll Dice</button>
+                        <button id="auto-roll-btn" class="auto-btn" style="display: none;">Auto Roll: OFF</button>
+                        <button id="risk-roll-btn" class="risk-btn" style="display: none;">Risk Roll (2x chance)</button>
+                    </div>
+
+                    <div id="combo-streak-display">
+                        <div id="combo-counter" style="display: none;">
+                            <span class="label">Combo:</span>
+                            <span id="combo-value">0</span>
+                        </div>
+                        <div id="streak-counter" style="display: none;">
+                            <span class="label">Streak:</span>
+                            <span id="streak-value">0</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Upgrades Section -->
+                <section id="upgrades-section">
+                    <h2>Upgrades</h2>
+                    <div id="upgrades-container">
+                        <!-- Upgrades will be dynamically populated -->
+                    </div>
+                </section>
+
+                <!-- Layer Progress Section -->
+                <section id="layer-section">
+                    <h2>Layer Progress</h2>
+                    <div id="layer-info">
+                        <div id="layer-description"></div>
+                        <div id="layer-progress-bar">
+                            <div id="layer-progress-fill"></div>
+                        </div>
+                        <div id="layer-requirements"></div>
+                        <button id="rebirth-btn" class="rebirth-btn" style="display: none;">Rebirth to Next Layer</button>
+                    </div>
+
+                    <div id="layer-features">
+                        <h3>Layer Features</h3>
+                        <div id="unlocked-features"></div>
+                    </div>
+                </section>
+
+                <!-- Special Events Section -->
+                <section id="events-section" style="display: none;">
+                    <h2>Special Events</h2>
+                    <div id="event-display"></div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <aside id="sidebar">
+                <div id="layer-list">
+                    <h3>Rebirth Layers</h3>
+                    <div id="layers-container"></div>
+                </div>
+
+                <div id="achievements">
+                    <h3>Achievements</h3>
+                    <div id="achievements-container"></div>
+                </div>
+
+                <div id="save-controls">
+                    <button id="save-btn" class="utility-btn">Save Game</button>
+                    <button id="load-btn" class="utility-btn">Load Game</button>
+                    <button id="reset-btn" class="utility-btn danger">Reset Game</button>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="game.js"></script>
+    <script src="rolls.js"></script>
+    <script src="upgrades.js"></script>
+    <script src="save.js"></script>
+</body>
+</html>
