@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic RNG Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>Epic RNG Game</h1>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-label">Points:</span>
+                    <span id="points" class="stat-value">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Rebirths:</span>
+                    <span id="rebirths" class="stat-value">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Multiplier:</span>
+                    <span id="multiplier" class="stat-value">1x</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <section class="rng-section">
+                <h2>RNG Zone</h2>
+                <div class="rng-container">
+                    <button id="rng-button" class="rng-button">
+                        <span class="button-text">Click for RNG!</span>
+                        <span id="rng-result" class="rng-result"></span>
+                    </button>
+                    <div class="rng-info">
+                        <p>Click to generate random points!</p>
+                        <p>Range: <span id="min-range">1</span> - <span id="max-range">10</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="upgrades-section">
+                <h2>Upgrades</h2>
+                <div class="upgrades-container">
+                    <div class="upgrade" id="upgrade-multiplier">
+                        <h3>Click Multiplier</h3>
+                        <p>Increase your click multiplier</p>
+                        <div class="upgrade-cost">Cost: <span id="multiplier-cost">10</span> points</div>
+                        <button id="buy-multiplier" class="upgrade-button">Buy</button>
+                    </div>
+                    <div class="upgrade" id="upgrade-range">
+                        <h3>Better RNG Range</h3>
+                        <p>Increase maximum RNG value</p>
+                        <div class="upgrade-cost">Cost: <span id="range-cost">25</span> points</div>
+                        <button id="buy-range" class="upgrade-button">Buy</button>
+                    </div>
+                    <div class="upgrade" id="upgrade-auto">
+                        <h3>Auto Clicker</h3>
+                        <p>Automatically click for you</p>
+                        <div class="upgrade-cost">Cost: <span id="auto-cost">100</span> points</div>
+                        <button id="buy-auto" class="upgrade-button">Buy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="rebirth-section">
+                <h2>Rebirth System</h2>
+                <div class="rebirth-container">
+                    <div class="rebirth-info">
+                        <p>Reset your progress for permanent bonuses!</p>
+                        <p>Next rebirth bonus: +<span id="rebirth-bonus">0.1</span>x multiplier</p>
+                        <p>Requirement: <span id="rebirth-requirement">1000</span> points</p>
+                    </div>
+                    <button id="rebirth-button" class="rebirth-button" disabled>
+                        Rebirth
+                    </button>
+                </div>
+            </section>
+
+            <section class="prestige-section">
+                <h2>Prestige Layers</h2>
+                <div class="prestige-container">
+                    <div class="prestige-layer" id="prestige-1">
+                        <h3>Prestige I</h3>
+                        <p>Ultimate reset for massive bonuses</p>
+                        <div class="prestige-requirement">Requirement: <span id="prestige-1-req">10</span> rebirths</div>
+                        <button id="prestige-1-button" class="prestige-button" disabled>
+                            Prestige I
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="game-footer">
+            <div class="achievements">
+                <h3>Recent Achievement</h3>
+                <div id="latest-achievement" class="achievement">
+                    Start clicking to unlock achievements!
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
