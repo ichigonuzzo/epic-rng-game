@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic RNG Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .main-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .side-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        #click-button {
+            font-size: 24px;
+            padding: 20px 40px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: transform 0.1s;
+        }
+        
+        #click-button:hover {
+            transform: scale(1.05);
+        }
+        
+        #click-button:active {
+            transform: scale(0.95);
+        }
+        
+        .score-display {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #4ecdc4;
+        }
+        
+        .layer-display {
+            font-size: 20px;
+            margin: 10px 0;
+            color: #ffa726;
+        }
+        
+        #rebirth-button {
+            font-size: 18px;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #9c27b0, #673ab7);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        
+        #rebirth-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .upgrade-button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            background: #4caf50;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            text-align: left;
+        }
+        
+        .upgrade-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .upgrade-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .upgrade-description {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .upgrade-cost {
+            font-size: 14px;
+            color: #ffeb3b;
+        }
+        
+        .achievement {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .achievement.locked {
+            border-left-color: #666;
+            opacity: 0.5;
+        }
+        
+        .achievement-name {
+            font-weight: bold;
+        }
+        
+        .achievement-description {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .stat {
+            margin: 5px 0;
+            padding: 5px;
+            background: #333;
+            border-radius: 3px;
+        }
+        
+        #floating-text-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .floating-text {
+            position: absolute;
+            font-weight: bold;
+            font-size: 20px;
+            animation: float-up 2s ease-out forwards;
+        }
+        
+        .floating-text.score-gain {
+            color: #4ecdc4;
+        }
+        
+        .floating-text.lucky {
+            color: #ffd700;
+            font-size: 24px;
+        }
+        
+        .floating-text.rebirth {
+            color: #9c27b0;
+            font-size: 28px;
+        }
+        
+        .floating-text.achievement {
+            color: #4caf50;
+            font-size: 22px;
+        }
+        
+        .floating-text.upgrade {
+            color: #ff9800;
+        }
+        
+        @keyframes float-up {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+        }
+        
+        .section {
+            margin: 20px 0;
+        }
+        
+        .section h3 {
+            color: #ffa726;
+            border-bottom: 2px solid #ffa726;
+            padding-bottom: 5px;
+        }
+        
+        .game-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .control-button {
+            margin: 5px;
+            padding: 10px 20px;
+            background: #607d8b;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #4ecdc4;">Epic RNG Game</h1>
+    
+    <div class="game-container">
+        <div class="main-panel">
+            <div class="score-display" id="score-display">0</div>
+            <div class="layer-display" id="layer-display">Layer 1: Novice</div>
+            
+            <button id="click-button">🎲 CLICK FOR RNG! 🎲</button>
+            
+            <div class="rebirth-section">
+                <button id="rebirth-button">Rebirth</button>
+                <div id="rebirth-cost-display">Cost: 1,000</div>
+            </div>
+            
+            <div class="game-controls">
+                <button class="control-button" onclick="exportSave()">Export Save</button>
+                <button class="control-button" onclick="document.getElementById('import-input').click()">Import Save</button>
+                <button class="control-button" onclick="resetGame()">Reset Game</button>
+            </div>
+            
+            <input type="file" id="import-input" style="display: none;" onchange="handleImport(event)">
+        </div>
+        
+        <div class="side-panel">
+            <div class="section">
+                <h3>Upgrades</h3>
+                <div id="upgrades-container"></div>
+            </div>
+            
+            <div class="section">
+                <h3>Achievements</h3>
+                <div id="achievements-list"></div>
+            </div>
+            
+            <div class="section">
+                <h3>Statistics</h3>
+                <div id="statistics"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="floating-text-container"></div>
+    
+    <script src="game.js"></script>
+    <script>
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const saveData = e.target.result;
+                        importSave(saveData);
+                    } catch (error) {
+                        alert('Error reading file!');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+    </script>
+</body>
+</html>
