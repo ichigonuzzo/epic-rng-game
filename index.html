@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic RNG Game - Enhanced Edition</title>
+    <meta name="description" content="An epic random number generator game with upgrades, achievements, and exciting visual effects">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Audio controls -->
+    <div class="audio-controls" role="group" aria-label="Audio controls">
+        <button id="toggleMusic" class="audio-btn" aria-label="Toggle background music">
+            <span id="musicIcon">🔊</span>
+        </button>
+        <button id="toggleSfx" class="audio-btn" aria-label="Toggle sound effects">
+            <span id="sfxIcon">🔔</span>
+        </button>
+        <input type="range" id="volumeSlider" min="0" max="100" value="50" aria-label="Master volume" class="volume-slider">
+    </div>
+
+    <!-- Particle effects container -->
+    <div id="particleContainer" aria-hidden="true"></div>
+
+    <!-- Main game container -->
+    <main class="game-container" role="main">
+        <header class="game-header">
+            <h1>Epic RNG Game</h1>
+            <p class="game-subtitle">Enhanced Edition with Epic Features!</p>
+        </header>
+
+        <!-- Game stats -->
+        <section class="stats-panel" role="region" aria-labelledby="stats-heading">
+            <h2 id="stats-heading" class="visually-hidden">Game Statistics</h2>
+            <div class="stat-item">
+                <span class="stat-label">Points:</span>
+                <span id="points" class="stat-value" aria-live="polite">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Multiplier:</span>
+                <span id="multiplier" class="stat-value" aria-live="polite">1.0x</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Streak:</span>
+                <span id="streak" class="stat-value" aria-live="polite">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Best Roll:</span>
+                <span id="bestRoll" class="stat-value" aria-live="polite">0</span>
+            </div>
+        </section>
+
+        <!-- Main RNG section -->
+        <section class="rng-section" role="region" aria-labelledby="rng-heading">
+            <h2 id="rng-heading" class="visually-hidden">Random Number Generator</h2>
+            <div class="rng-container">
+                <div class="rng-display">
+                    <div id="currentRoll" class="current-roll" aria-live="assertive">0</div>
+                    <div class="range-display">Range: <span id="minRange">1</span> - <span id="maxRange">10</span></div>
+                </div>
+                <button id="rollButton" class="roll-button" aria-describedby="rollHelp">
+                    <span class="button-text">ROLL</span>
+                    <span class="button-glow"></span>
+                </button>
+                <div id="rollHelp" class="help-text">Press SPACE or click to roll</div>
+            </div>
+            <div id="floatingNumbers" class="floating-numbers" aria-hidden="true"></div>
+        </section>
+
+        <!-- Upgrades section -->
+        <section class="upgrades-section" role="region" aria-labelledby="upgrades-heading">
+            <h2 id="upgrades-heading">Upgrades</h2>
+            <div class="upgrades-grid">
+                <div class="upgrade-card" data-upgrade="multiplier">
+                    <div class="upgrade-icon">⚡</div>
+                    <div class="upgrade-info">
+                        <h3>Click Multiplier</h3>
+                        <p>Increases your points per roll</p>
+                        <div class="upgrade-stats">
+                            <span class="upgrade-level">Level: <span id="multiplierLevel">0</span></span>
+                            <span class="upgrade-cost">Cost: <span id="multiplierCost">10</span></span>
+                        </div>
+                    </div>
+                    <button class="upgrade-btn" id="buyMultiplier" aria-describedby="multiplier-desc">
+                        Buy
+                    </button>
+                </div>
+
+                <div class="upgrade-card" data-upgrade="range">
+                    <div class="upgrade-icon">🎯</div>
+                    <div class="upgrade-info">
+                        <h3>Better Range</h3>
+                        <p>Increases maximum roll value</p>
+                        <div class="upgrade-stats">
+                            <span class="upgrade-level">Level: <span id="rangeLevel">0</span></span>
+                            <span class="upgrade-cost">Cost: <span id="rangeCost">25</span></span>
+                        </div>
+                    </div>
+                    <button class="upgrade-btn" id="buyRange" aria-describedby="range-desc">
+                        Buy
+                    </button>
+                </div>
+
+                <div class="upgrade-card" data-upgrade="auto">
+                    <div class="upgrade-icon">🤖</div>
+                    <div class="upgrade-info">
+                        <h3>Auto Clicker</h3>
+                        <p>Automatically rolls every second</p>
+                        <div class="upgrade-stats">
+                            <span class="upgrade-level">Level: <span id="autoLevel">0</span></span>
+                            <span class="upgrade-cost">Cost: <span id="autoCost">100</span></span>
+                        </div>
+                    </div>
+                    <button class="upgrade-btn" id="buyAuto" aria-describedby="auto-desc">
+                        Buy
+                    </button>
+                </div>
+
+                <div class="upgrade-card" data-upgrade="luck">
+                    <div class="upgrade-icon">🍀</div>
+                    <div class="upgrade-info">
+                        <h3>Luck Booster</h3>
+                        <p>Increases chance of high rolls</p>
+                        <div class="upgrade-stats">
+                            <span class="upgrade-level">Level: <span id="luckLevel">0</span></span>
+                            <span class="upgrade-cost">Cost: <span id="luckCost">250</span></span>
+                        </div>
+                    </div>
+                    <button class="upgrade-btn" id="buyLuck" aria-describedby="luck-desc">
+                        Buy
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements section -->
+        <section class="achievements-section" role="region" aria-labelledby="achievements-heading">
+            <h2 id="achievements-heading">Achievements</h2>
+            <div id="achievementsList" class="achievements-list" aria-live="polite">
+                <!-- Achievements will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Prestige section -->
+        <section class="prestige-section" role="region" aria-labelledby="prestige-heading">
+            <h2 id="prestige-heading">Prestige</h2>
+            <div class="prestige-info">
+                <p>Reset your progress for permanent bonuses!</p>
+                <div class="prestige-stats">
+                    <span>Prestige Level: <span id="prestigeLevel">0</span></span>
+                    <span>Prestige Bonus: <span id="prestigeBonus">0%</span></span>
+                </div>
+                <button id="prestigeButton" class="prestige-btn" disabled>
+                    Prestige (Requires 10,000 points)
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Settings modal -->
+    <div id="settingsModal" class="modal" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 id="settings-title">Settings</h2>
+                <button class="modal-close" aria-label="Close settings">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="animationToggle">Enable Animations</label>
+                    <input type="checkbox" id="animationToggle" checked>
+                </div>
+                <div class="setting-group">
+                    <label for="particleToggle">Enable Particle Effects</label>
+                    <input type="checkbox" id="particleToggle" checked>
+                </div>
+                <div class="setting-group">
+                    <label for="autoSaveToggle">Auto Save</label>
+                    <input type="checkbox" id="autoSaveToggle" checked>
+                </div>
+                <div class="setting-group">
+                    <button id="resetProgress" class="danger-btn">Reset All Progress</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings button -->
+    <button id="settingsButton" class="settings-btn" aria-label="Open settings">⚙️</button>
+
+    <!-- Load JavaScript -->
+    <script src="script.js"></script>
+
+    <!-- Hidden descriptions for screen readers -->
+    <div class="visually-hidden">
+        <div id="multiplier-desc">Increases the number of points you get per roll</div>
+        <div id="range-desc">Increases the maximum possible roll value</div>
+        <div id="auto-desc">Automatically performs rolls without clicking</div>
+        <div id="luck-desc">Improves your chances of getting higher roll values</div>
+    </div>
+</body>
+</html>
