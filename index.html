@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic RNG Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">Epic RNG Game</h1>
+            <div class="stats-display">
+                <div class="stat">
+                    <span class="stat-label">Points:</span>
+                    <span class="stat-value" id="points">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Level:</span>
+                    <span class="stat-value" id="level">1</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Rebirths:</span>
+                    <span class="stat-value" id="rebirths">0</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <section class="rng-section">
+                <div class="rng-display">
+                    <div class="current-number" id="current-number">0</div>
+                    <div class="number-label">Current Roll</div>
+                </div>
+                
+                <button class="rng-button" id="rng-button">
+                    <span class="button-text">ROLL!</span>
+                    <div class="button-glow"></div>
+                </button>
+
+                <div class="multiplier-display">
+                    <span>Multiplier: x<span id="multiplier">1</span></span>
+                </div>
+            </section>
+
+            <section class="upgrades-section">
+                <h2 class="section-title">Upgrades</h2>
+                <div class="upgrades-grid">
+                    <div class="upgrade-card" data-upgrade="click">
+                        <h3>Better Rolls</h3>
+                        <p>Increase roll multiplier</p>
+                        <div class="cost">Cost: <span class="cost-value">10</span></div>
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="auto">
+                        <h3>Auto Roller</h3>
+                        <p>Automatically roll every second</p>
+                        <div class="cost">Cost: <span class="cost-value">100</span></div>
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="luck">
+                        <h3>Lucky Charm</h3>
+                        <p>Higher chance of good rolls</p>
+                        <div class="cost">Cost: <span class="cost-value">500</span></div>
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="rebirth-section">
+                <h2 class="section-title">Rebirth Layers</h2>
+                <div class="rebirth-layers">
+                    <div class="rebirth-layer" data-layer="1">
+                        <div class="layer-header">
+                            <h3>First Rebirth</h3>
+                            <div class="layer-requirement">Requires: 10,000 points</div>
+                        </div>
+                        <div class="layer-benefits">
+                            <p>Gain permanent 2x multiplier</p>
+                            <p>Unlock new upgrades</p>
+                        </div>
+                        <button class="rebirth-button" disabled>Rebirth</button>
+                    </div>
+                    
+                    <div class="rebirth-layer" data-layer="2">
+                        <div class="layer-header">
+                            <h3>Second Rebirth</h3>
+                            <div class="layer-requirement">Requires: 1 rebirth + 100,000 points</div>
+                        </div>
+                        <div class="layer-benefits">
+                            <p>Gain 5x multiplier</p>
+                            <p>Unlock prestige currency</p>
+                        </div>
+                        <button class="rebirth-button" disabled>Prestige</button>
+                    </div>
+                    
+                    <div class="rebirth-layer" data-layer="3">
+                        <div class="layer-header">
+                            <h3>Transcendence</h3>
+                            <div class="layer-requirement">Requires: 10 prestiges</div>
+                        </div>
+                        <div class="layer-benefits">
+                            <p>Unlock infinite scaling</p>
+                            <p>Cosmic multipliers</p>
+                        </div>
+                        <button class="rebirth-button" disabled>Transcend</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
