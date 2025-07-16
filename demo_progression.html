@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Progression</title>
+</head>
+<body>
+    <h1>Epic RNG Game - Fast Demo</h1>
+    <p>Points: <span id="points">0</span></p>
+    <p>Layer: <span id="layer">Novice (1)</span></p>
+    <button id="fastRoll">Fast Roll (100 points)</button>
+    
+    <script>
+        let points = 0;
+        let layer = 1;
+        
+        document.getElementById('fastRoll').onclick = function() {
+            points += 100;
+            document.getElementById('points').textContent = points;
+            
+            if (points >= 100 && layer === 1) {
+                layer = 2;
+                document.getElementById('layer').textContent = 'Apprentice (2)';
+                alert('Reached Apprentice layer! Auto-roll unlocked!');
+            }
+        };
+    </script>
+</body>
+</html>
